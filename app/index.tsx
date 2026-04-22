@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -28,6 +29,12 @@ export default function HomeScreen() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchUsers();
+    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -55,6 +62,8 @@ export default function HomeScreen() {
       <FlatList
         data={users}
         keyExtractor={(item) => item.id.toString()}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => router.push(`/detail?id=${item.id}`)}
