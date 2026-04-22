@@ -1,17 +1,32 @@
 const BASE_URL = "https://reqres.in/api";
+const API_KEY = "reqres_c580d898157b4e55affdc9696f1b402c";
 
 export const getUsers = async () => {
-  const response = await fetch(`${BASE_URL}/users?page=1`);
+  try {
+    const response = await fetch(`${BASE_URL}/users?page=1`, {
+      headers: {
+        "x-api-key": API_KEY,
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch users");
+    console.log("status:", response.status);
+
+    const json = await response.json();
+    console.log("data:", json);
+
+    return json;
+  } catch (error) {
+    console.log("API ERROR:", error);
+    throw error;
   }
-
-  return response.json();
 };
 
 export const getUserById = async (id: string) => {
-  const response = await fetch(`${BASE_URL}/users/${id}`);
+  const response = await fetch(`${BASE_URL}/users/${id}`, {
+    headers: {
+      "x-api-key": API_KEY,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch user");
@@ -25,6 +40,7 @@ export const createUser = async (name: string, job: string) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "x-api-key": API_KEY,
     },
     body: JSON.stringify({ name, job }),
   });
