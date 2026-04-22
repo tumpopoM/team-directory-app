@@ -70,6 +70,7 @@ export default function HomeScreen() {
           justifyContent: "center",
           alignItems: "center",
           elevation: 5,
+          zIndex: 10,
         }}
       >
         <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
@@ -98,7 +99,6 @@ export default function HomeScreen() {
                 shadowOpacity: 0.08,
                 shadowRadius: 8,
                 shadowOffset: { width: 0, height: 2 },
-
                 elevation: 3,
               }}
             >
