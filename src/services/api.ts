@@ -19,3 +19,19 @@ export const getUserById = async (id: string) => {
 
   return response.json();
 };
+
+export const createUser = async (name: string, job: string) => {
+  const response = await fetch(`${BASE_URL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, job }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create user");
+  }
+
+  return response.json();
+};
