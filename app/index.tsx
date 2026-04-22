@@ -2,7 +2,6 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   FlatList,
   Image,
   Text,
@@ -57,27 +56,67 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 16 }}>
-      <Button title="Add Teammate" onPress={() => router.push("/add")} />
+    <SafeAreaView style={{ flex: 1, padding: 16, backgroundColor: "#f6f7fb" }}>
+      <TouchableOpacity
+        onPress={() => router.push("/add")}
+        style={{
+          position: "absolute",
+          bottom: 24,
+          right: 24,
+          backgroundColor: "#007AFF",
+          width: 56,
+          height: 56,
+          borderRadius: 28,
+          justifyContent: "center",
+          alignItems: "center",
+          elevation: 5,
+        }}
+      >
+        <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
+      </TouchableOpacity>
       <FlatList
         data={users}
         keyExtractor={(item) => item.id.toString()}
         refreshing={refreshing}
         onRefresh={onRefresh}
+        contentContainerStyle={{ paddingBottom: 80 }}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => router.push(`/detail?id=${item.id}`)}
           >
-            <View style={{ flexDirection: "row", padding: 12 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 12,
+                backgroundColor: "#fff",
+                borderRadius: 12,
+                marginBottom: 12,
+                borderWidth: 1,
+                borderColor: "#eee",
+                shadowColor: "#000",
+                shadowOpacity: 0.08,
+                shadowRadius: 8,
+                shadowOffset: { width: 0, height: 2 },
+
+                elevation: 3,
+              }}
+            >
               <Image
                 source={{ uri: item.avatar }}
-                style={{ width: 50, height: 50, borderRadius: 25 }}
+                onError={(e) => console.log("image error")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                  marginRight: 12,
+                }}
               />
-              <View style={{ marginLeft: 12 }}>
-                <Text>
+              <View>
+                <Text style={{ fontWeight: "600", fontSize: 16 }}>
                   {item.first_name} {item.last_name}
                 </Text>
-                <Text>{item.email}</Text>
+                <Text style={{ color: "#666" }}>{item.email}</Text>
               </View>
             </View>
           </TouchableOpacity>
