@@ -1,50 +1,155 @@
-# Welcome to your Expo app 👋
+# Team Directory App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple React Native application built with Expo that allows users to browse a team directory, view user details, and add new teammates.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
+- View a list of users from a remote API (ReqRes)
+- Navigate to a user detail screen
+- Add a new teammate via a form
+- Basic client-side validation (required fields)
+- Loading, error, and empty states handling
+- Pull-to-refresh support for updating the user list
+- Clean UI with card-based layout and floating action button (FAB)
+
+---
+
+## 🛠 Tech Stack
+
+- React Native (Expo)
+- TypeScript
+- Expo Router (file-based navigation)
+- Fetch API
+
+---
+
+## 📦 Installation
+
+1. Clone the repository
+
+   git clone [<your-repo-url>](https://github.com/tumpopoM/team-directory-app.git)
+   cd team-directory-app
+
+2. Install dependencies
+
    npm install
-   ```
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## ▶️ Running the App
 
-In the output, you'll find options to open the app in a
+Start the development server:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+    npx expo start
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Then choose one of the following:
 
-## Get a fresh project
+### Android
 
-When you're ready, run:
+- Press `a` to open Android emulator
 
-```bash
-npm run reset-project
-```
+### iOS
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Press `i` to open iOS simulator (Mac only)
 
-## Learn more
+### Web
 
-To learn more about developing your project with Expo, look at the following resources:
+- Press `w` to open in browser
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## ⚙️ Requirements
 
-Join our community of developers creating universal apps.
+- Node.js (>= 18 recommended)
+- npm or yarn
+- Android Studio (for Android emulator)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 📱 Tested On
+
+- Android Emulator (Pixel / Android Studio)
+
+---
+
+## 🌐 API
+
+This app uses the public ReqRes API:
+
+- GET /users?page=1
+- GET /users/{id}
+- POST /users
+
+> Note: The create endpoint does not persist data. It returns a success response but does not update the user list.
+
+---
+
+## 📁 Project Structure
+
+team-directory-app/
+├── app/
+│ ├── index.tsx # User list screen
+│ ├── detail.tsx # User detail screen
+│ └── add.tsx # Add teammate form
+│
+├── src/
+│ └── services/
+│ └── api.ts # API functions
+│
+├── assets/
+├── components/
+├── hooks/
+│
+├── package.json
+├── tsconfig.json
+└── README.md
+
+---
+
+## ⚖️ Assumptions & Trade-offs
+
+- Only the first page of users is implemented (no pagination)
+- Created users are not persisted due to API limitations
+- UI is intentionally simple and focused on usability
+- No external state management library used
+
+---
+
+## 🧠 Approach
+
+- Centralized API logic in a single service file (api.ts)
+- Used React hooks (useState, useEffect)
+- Implemented navigation using Expo Router
+- Handled loading, error, and empty states
+- Improved UI with:
+  - Card-style list items
+  - Floating action button (FAB)
+  - Clean form layout
+- Added pull-to-refresh for better UX
+
+---
+
+## 🎯 Improvements (If More Time)
+
+- Pagination / infinite scroll
+- Local update after creating user
+- Better error handling
+- Unit testing
+- Accessibility improvements
+
+---
+
+## 📌 Notes
+
+- Focused on core React Native concepts:
+  - Navigation
+  - API integration
+  - Form handling
+  - UI structuring
+- UI is simple but practical
+
+---
+
+## 🙌 Thank you
