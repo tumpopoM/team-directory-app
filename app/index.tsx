@@ -1,16 +1,72 @@
 import { useRouter } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { getUsers } from "../src/services/api";
 
 export default function HomeScreen() {
   const router = useRouter();
 
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchUsers = async () => {
+    try {
+      const data = await getUsers();
+      setUsers(data.data);
+    } catch (e) {
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // loading
+  if (loading) {
+    return <ActivityIndicator size="large" />;
+  }
+
+  // error
+  if (error) {
+    return <Text>{error}</Text>;
+  }
+
+  // empty
+  if (users.length === 0) {
+    return <Text>No users found</Text>;
+  }
+
   return (
-    <View>
-      <Text>User List</Text>
-
-      <Button title="Go to Detail" onPress={() => router.push("/detail")} />
-
-      <Button title="Go to Add User" onPress={() => router.push("/add")} />
-    </View>
+    <FlatList
+      data={users}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => router.push(`/detail?id=${item.id}`)}>
+          <View style={{ flexDirection: "row", padding: 12 }}>
+            <Image
+              source={{ uri: item.avatar }}
+              style={{ width: 50, height: 50, borderRadius: 25 }}
+            />
+            <View style={{ marginLeft: 12 }}>
+              <Text>
+                {item.first_name} {item.last_name}
+              </Text>
+              <Text>{item.email}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
   );
 }
