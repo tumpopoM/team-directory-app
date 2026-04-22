@@ -2,12 +2,14 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   Image,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { getUsers } from "../src/services/api";
 
 export default function HomeScreen() {
@@ -48,25 +50,30 @@ export default function HomeScreen() {
   }
 
   return (
-    <FlatList
-      data={users}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => router.push(`/detail?id=${item.id}`)}>
-          <View style={{ flexDirection: "row", padding: 12 }}>
-            <Image
-              source={{ uri: item.avatar }}
-              style={{ width: 50, height: 50, borderRadius: 25 }}
-            />
-            <View style={{ marginLeft: 12 }}>
-              <Text>
-                {item.first_name} {item.last_name}
-              </Text>
-              <Text>{item.email}</Text>
+    <SafeAreaView style={{ flex: 1, padding: 16 }}>
+      <Button title="Add Teammate" onPress={() => router.push("/add")} />
+      <FlatList
+        data={users}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => router.push(`/detail?id=${item.id}`)}
+          >
+            <View style={{ flexDirection: "row", padding: 12 }}>
+              <Image
+                source={{ uri: item.avatar }}
+                style={{ width: 50, height: 50, borderRadius: 25 }}
+              />
+              <View style={{ marginLeft: 12 }}>
+                <Text>
+                  {item.first_name} {item.last_name}
+                </Text>
+                <Text>{item.email}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      )}
-    />
+          </TouchableOpacity>
+        )}
+      />
+    </SafeAreaView>
   );
 }
