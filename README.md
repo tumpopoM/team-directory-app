@@ -71,6 +71,7 @@ Then choose one of the following:
 ## 📱 Tested On
 
 - Android Emulator (Pixel / Android Studio)
+- iOS: Not tested (Windows environment)
 
 ---
 
