@@ -1,6 +1,14 @@
 const BASE_URL = "https://reqres.in/api";
 const API_KEY = "reqres_c580d898157b4e55affdc9696f1b402c";
 
+export interface User {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
+
 export const getUsers = async () => {
   try {
     const response = await fetch(`${BASE_URL}/users?page=1`, {

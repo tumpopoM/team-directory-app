@@ -9,19 +9,23 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getUsers } from "../src/services/api";
+import { getUsers, User } from "../src/services/api";
+
+type UsersResponse = {
+  data: User[];
+};
 
 export default function HomeScreen() {
   const router = useRouter();
 
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchUsers = async () => {
     try {
-      const data = await getUsers();
+      const data: UsersResponse = await getUsers();
       setUsers(data.data);
     } catch (e) {
       setError("Something went wrong");
@@ -51,7 +55,7 @@ export default function HomeScreen() {
   }
 
   // empty
-  if (users.length === 0) {
+  if (!users || users.length === 0) {
     return <Text>No users found</Text>;
   }
 
