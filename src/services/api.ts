@@ -1,5 +1,5 @@
 const BASE_URL = "https://reqres.in/api";
-const API_KEY = "reqres_c580d898157b4e55affdc9696f1b402c";
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY ?? "";
 
 export interface User {
   id: number;

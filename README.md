@@ -132,6 +132,16 @@ team-directory-app/
 
 ---
 
+## 🔐 Environment Variables
+
+This project uses environment variables for configuration.
+
+Create a `.env` file in the root directory:
+
+> Note: In a production environment, API keys should not be exposed in the client. A backend proxy should be used instead.
+
+---
+
 ## 🎯 Improvements (If More Time)
 
 - Pagination / infinite scroll

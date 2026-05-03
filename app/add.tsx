@@ -19,7 +19,6 @@ export default function AddScreen() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    // ✅ validation
     if (!name || !job) {
       Alert.alert("Error", "Please fill all fields");
       return;
